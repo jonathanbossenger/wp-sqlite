@@ -117,6 +117,9 @@ const TableViewer = ({ directory, tableName }) => {
         <table className="w-full text-sm">
           <thead className="bg-gray-100 sticky top-0">
             <tr>
+              <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b border-gray-200">
+                Actions
+              </th>
               {tableData.columns.map((column) => (
                 <th key={column} className="px-4 py-2 text-left font-semibold text-gray-700 border-b border-gray-200">
                   {column}
@@ -125,9 +128,6 @@ const TableViewer = ({ directory, tableName }) => {
                   )}
                 </th>
               ))}
-              <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b border-gray-200">
-                Actions
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -135,11 +135,6 @@ const TableViewer = ({ directory, tableName }) => {
               const rowId = pkColumn ? row[pkColumn.name] : index;
               return (
                 <tr key={rowId} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  {tableData.columns.map((column) => (
-                    <td key={column} className="px-4 py-2 border-b border-gray-200 max-w-xs truncate">
-                      {row[column] !== null ? String(row[column]) : <span className="text-gray-400 italic">NULL</span>}
-                    </td>
-                  ))}
                   <td className="px-4 py-2 border-b border-gray-200">
                     <div className="flex gap-2">
                       <button
@@ -158,6 +153,11 @@ const TableViewer = ({ directory, tableName }) => {
                       )}
                     </div>
                   </td>
+                  {tableData.columns.map((column) => (
+                    <td key={column} className="px-4 py-2 border-b border-gray-200 max-w-xs truncate">
+                      {row[column] !== null ? String(row[column]) : <span className="text-gray-400 italic">NULL</span>}
+                    </td>
+                  ))}
                 </tr>
               );
             })}
