@@ -3,10 +3,11 @@ const fs = require('fs');
 const png2icons = require('png2icons');
 
 async function generateIcons() {
-  const { Jimp, rgbaToInt } = await import('jimp');
+  const { Jimp } = await import('jimp');
   
   const assetsDir = path.join(__dirname, '..', 'assets');
   const iconsDir = path.join(assetsDir, 'icons');
+  const customIconDir = path.join(iconsDir, 'custom');
 
   // Create directories
   ['mac', 'win', 'linux'].forEach(platform => {
@@ -16,47 +17,24 @@ async function generateIcons() {
     }
   });
 
-  // Create a simple icon with database symbol
-  const size = 1024;
-  const image = await new Jimp({ width: size, height: size, color: 0x00000000 });
-
-  // Create gradient background
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
-      const dist = Math.sqrt(Math.pow(x - size/2, 2) + Math.pow(y - size/2, 2));
-      if (dist < size/2) {
-        // Gradient from purple to blue
-        const ratio = dist / (size/2);
-        const r = Math.floor(102 + (118 - 102) * ratio);
-        const g = Math.floor(126 + (75 - 126) * ratio);
-        const b = Math.floor(234 + (162 - 234) * ratio);
-        const a = 255;
-        const color = rgbaToInt(r, g, b, a);
-        image.setPixelColor(color, x, y);
-      }
-    }
+  // Find the custom icon file
+  if (!fs.existsSync(customIconDir)) {
+    throw new Error(`Custom icon directory not found: ${customIconDir}`);
   }
-
-  // Add rounded corners
-  const cornerRadius = size / 8;
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
-      // Check if pixel is in a corner that should be transparent
-      const inTopLeft = x < cornerRadius && y < cornerRadius;
-      const inTopRight = x > size - cornerRadius && y < cornerRadius;
-      const inBottomLeft = x < cornerRadius && y > size - cornerRadius;
-      const inBottomRight = x > size - cornerRadius && y > size - cornerRadius;
-
-      if (inTopLeft || inTopRight || inBottomLeft || inBottomRight) {
-        const cornerX = inTopLeft || inBottomLeft ? cornerRadius : size - cornerRadius;
-        const cornerY = inTopLeft || inTopRight ? cornerRadius : size - cornerRadius;
-        const dist = Math.sqrt(Math.pow(x - cornerX, 2) + Math.pow(y - cornerY, 2));
-        if (dist > cornerRadius) {
-          image.setPixelColor(0x00000000, x, y);
-        }
-      }
-    }
+  
+  const customIconFiles = fs.readdirSync(customIconDir)
+    .filter(file => file.toLowerCase().endsWith('.png'))
+    .sort(); // Sort to ensure consistent selection
+  
+  if (customIconFiles.length === 0) {
+    throw new Error('No PNG file found in assets/icons/custom/');
   }
+  
+  const customIconPath = path.join(customIconDir, customIconFiles[0]);
+  console.log(`Using custom icon: ${customIconFiles[0]}`);
+
+  // Load the custom icon
+  const image = await Jimp.read(customIconPath);
 
   // Save base PNG
   const basePngPath = path.join(iconsDir, 'icon.png');
