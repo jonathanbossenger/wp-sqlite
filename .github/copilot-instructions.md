@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-WP SQLite is a desktop application for viewing and editing SQLite databases in WordPress Studio installations. It's built with Electron and React, providing a user-friendly interface for database management.
+WP SQLite is a desktop application for viewing and editing SQLite databases in [WordPress Studio](https://developer.wordpress.com/studio/) installations. It's built with Electron and React, providing a user-friendly interface for database management.
+
+WordPress Studio is a desktop application for local WordPress development. For more information, see the [Studio GitHub repository](https://github.com/Automattic/studio/).
 
 ## Technology Stack
 
@@ -93,9 +95,9 @@ The app expects the SQLite database at:
 ```
 
 Example paths:
-- macOS: `/Users/username/Local Sites/my-site/wp-content/database/.ht.sqlite`
-- Windows: `C:\Users\username\Local Sites\my-site\wp-content\database\.ht.sqlite`
-- Linux: `/home/username/Local Sites/my-site/wp-content/database/.ht.sqlite`
+- macOS: `/Users/username/Studio/my-site/wp-content/database/.ht.sqlite`
+- Windows: `C:\Users\username\Studio\my-site\wp-content\database\.ht.sqlite`
+- Linux: `/home/username/Studio/my-site/wp-content/database/.ht.sqlite`
 
 ## Development Workflow
 
