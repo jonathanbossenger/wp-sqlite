@@ -9,6 +9,7 @@ A desktop application for viewing and editing SQLite databases in [WordPress Stu
 - [Prerequisites](#prerequisites)
 - [Development Setup](#development-setup)
 - [Building Executables](#building-executables)
+- [Creating Releases](#creating-releases)
 - [Usage](#usage)
 - [Technical Stack](#technical-stack)
 - [License](#license)
@@ -93,6 +94,35 @@ For Linux:
 ```bash
 npm run make -- --platform=linux
 ```
+
+## Creating Releases
+
+The repository includes a GitHub Actions workflow that automatically builds the application for all platforms when a new release is created.
+
+### To create a new release:
+
+1. Update the version in `package.json`
+2. Commit the version change
+3. Create and push a new git tag:
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+4. Create a new release on GitHub:
+   - Go to the repository's Releases page
+   - Click "Draft a new release"
+   - Select the tag you just created
+   - Add release notes
+   - Click "Publish release"
+
+The GitHub Actions workflow will automatically:
+- Build the application for Windows, macOS, and Linux
+- Upload the following artifacts to the release:
+  - **Windows**: `.exe` installer (Squirrel), `.msi` installer (WiX)
+  - **macOS**: `.dmg` installer, `.zip` archive
+  - **Linux**: `.deb` package, `.rpm` package, `.zip` archive
+
+Users can then download and install the appropriate version for their operating system directly from the GitHub release page.
 
 ## Usage
 
