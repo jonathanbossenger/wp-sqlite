@@ -80,8 +80,9 @@ if (!validTables.includes(tableName)) {
 const stmt = db.prepare(`SELECT * FROM ${tableName} LIMIT ? OFFSET ?`);
 const data = stmt.all(limit, offset);
 
-// ❌ Bad - Direct string concatenation of table/column names and values
-const query = `SELECT * FROM ${tableName} WHERE ${columnName} = ${value}`;  // NEVER DO THIS
+// ❌ Bad - Direct concatenation of user values (SQL injection risk!)
+const query = `SELECT * FROM users WHERE name = '${userName}'`;  // NEVER DO THIS
+// Correct version: db.prepare('SELECT * FROM users WHERE name = ?').all(userName);
 ```
 
 ### WordPress Studio Database Location
