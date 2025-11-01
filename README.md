@@ -2,7 +2,7 @@
 
 <img src="https://github.com/jonathanbossenger/wp-sqlite/blob/main/assets/icons/icon.png" width="48">
 
-A desktop application for viewing and editing SQLite databases in WordPress Studio installations. Built with Electron and React.
+A desktop application for viewing and editing SQLite databases in [WordPress Studio](https://developer.wordpress.com/studio/) installations. Built with Electron and React.
 
 ## Table of Contents
 - [Features](#features)
@@ -37,7 +37,7 @@ A desktop application for viewing and editing SQLite databases in WordPress Stud
 
 - Node.js 18.x or higher
 - npm 9.x or higher
-- A WordPress Studio installation for testing
+- A [WordPress Studio](https://developer.wordpress.com/studio/) installation for testing ([GitHub](https://github.com/Automattic/studio/))
 
 ## Development Setup
 
