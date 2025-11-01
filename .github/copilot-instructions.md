@@ -80,16 +80,21 @@ if (!validTables.includes(tableName)) {
 const stmt = db.prepare(`SELECT * FROM ${tableName} LIMIT ? OFFSET ?`);
 const data = stmt.all(limit, offset);
 
-// ❌ Bad - Direct string concatenation without validation
-const query = `SELECT * FROM ${tableName} WHERE id = ${userId}`;  // NEVER DO THIS
+// ❌ Bad - Direct string concatenation of table/column names and values
+const query = `SELECT * FROM ${tableName} WHERE ${columnName} = ${value}`;  // NEVER DO THIS
 ```
 
 ### WordPress Studio Database Location
 
 The app expects the SQLite database at:
 ```
-<wordpress-studio-directory>/wp-content/database/.ht.sqlite
+{wordpress-studio-directory}/wp-content/database/.ht.sqlite
 ```
+
+Example paths:
+- macOS: `/Users/username/Local Sites/my-site/wp-content/database/.ht.sqlite`
+- Windows: `C:\Users\username\Local Sites\my-site\wp-content\database\.ht.sqlite`
+- Linux: `/home/username/Local Sites/my-site/wp-content/database/.ht.sqlite`
 
 ## Development Workflow
 
@@ -178,8 +183,15 @@ const result = await window.electronAPI.myFunction(arg);
 ### Manual Testing
 
 1. Create test WordPress Studio directory structure:
+
+**macOS/Linux:**
 ```bash
-mkdir -p /tmp/test-wp-studio/wp-content/database
+mkdir -p ~/test-wp-studio/wp-content/database
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Path "$env:USERPROFILE\test-wp-studio\wp-content\database" -Force
 ```
 
 2. Use the app to open and test functionality
