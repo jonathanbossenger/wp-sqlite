@@ -49,6 +49,11 @@ const getDatabasePath = (directory) => {
   return path.join(directory, 'wp-content', 'database', '.ht.sqlite');
 };
 
+// Function to filter out hidden tables (those starting with underscore)
+const filterHiddenTables = (tables) => {
+  return tables.filter(t => !t.name.startsWith('_'));
+};
+
 const createTray = async () => {
   // Use the pre-generated PNG icon
   const trayIcon = nativeImage.createFromPath(path.join(__dirname, '..', 'assets', 'tray-icon.png'));
@@ -202,8 +207,7 @@ ipcMain.handle('get-database-info', async (event, wpDirectory) => {
   try {
     const db = new Database(dbPath, { readonly: true });
     const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all();
-    // Filter out hidden tables (those starting with underscore)
-    const visibleTables = tables.filter(t => !t.name.startsWith('_'));
+    const visibleTables = filterHiddenTables(tables);
     db.close();
     return {
       path: dbPath,
@@ -222,8 +226,8 @@ ipcMain.handle('get-tables', async (event, wpDirectory) => {
     const db = new Database(dbPath, { readonly: true });
     const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all();
     db.close();
-    // Filter out hidden tables (those starting with underscore)
-    return tables.filter(t => !t.name.startsWith('_')).map(t => t.name);
+    const visibleTables = filterHiddenTables(tables);
+    return visibleTables.map(t => t.name);
   } catch (error) {
     console.error('Error getting tables:', error);
     throw error;
