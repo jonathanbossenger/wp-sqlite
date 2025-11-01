@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About WP SQLite</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      background-color: #f9fafb;
+    }
+    .container {
+      max-width: 300px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: white;
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0 0 10px 0;
+      color: #1f2937;
+    }
+    .version {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .description {
+      color: #4b5563;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .link {
+      color: #3b82f6;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🗄️</div>
+    <h1>WP SQLite</h1>
+    <p class="version">Version 1.0.0</p>
+    <p class="description">
+      A desktop application for viewing and editing SQLite databases in WordPress Studio installations.
+    </p>
+    <a href="#" class="link" onclick="window.electronAPI.openExternal('https://github.com/jonathanbossenger/wp-sqlite'); return false;">
+      View on GitHub
+    </a>
+    <p class="version" style="margin-top: 20px;">
+      © 2024 Jonathan Bossenger
+    </p>
+  </div>
+</body>
+</html>
