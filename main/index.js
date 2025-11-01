@@ -202,10 +202,12 @@ ipcMain.handle('get-database-info', async (event, wpDirectory) => {
   try {
     const db = new Database(dbPath, { readonly: true });
     const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all();
+    // Filter out hidden tables (those starting with underscore)
+    const visibleTables = tables.filter(t => !t.name.startsWith('_'));
     db.close();
     return {
       path: dbPath,
-      tableCount: tables.length
+      tableCount: visibleTables.length
     };
   } catch (error) {
     console.error('Error getting database info:', error);
@@ -220,7 +222,8 @@ ipcMain.handle('get-tables', async (event, wpDirectory) => {
     const db = new Database(dbPath, { readonly: true });
     const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all();
     db.close();
-    return tables.map(t => t.name);
+    // Filter out hidden tables (those starting with underscore)
+    return tables.filter(t => !t.name.startsWith('_')).map(t => t.name);
   } catch (error) {
     console.error('Error getting tables:', error);
     throw error;
