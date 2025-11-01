@@ -4,25 +4,27 @@ const fs = require('fs');
 
 async function generateTrayIcon() {
   const assetsDir = path.join(__dirname, '..', 'assets');
+  const iconsDir = path.join(assetsDir, 'icons');
+  const customIconDir = path.join(iconsDir, 'custom');
   
-  // Create a simple 32x32 tray icon
-  const size = 32;
+  // Find the custom icon file
+  if (!fs.existsSync(customIconDir)) {
+    throw new Error(`Custom icon directory not found: ${customIconDir}`);
+  }
   
-  // Create SVG for database icon
-  const svg = `
-    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="16" cy="8" rx="12" ry="4" fill="#333" opacity="0.8"/>
-      <rect x="4" y="8" width="24" height="16" fill="#333" opacity="0.8"/>
-      <ellipse cx="16" cy="24" rx="12" ry="4" fill="#333" opacity="0.8"/>
-      <ellipse cx="16" cy="8" rx="10" ry="3" fill="#555"/>
-      <rect x="6" y="8" width="20" height="16" fill="#555"/>
-      <ellipse cx="16" cy="24" rx="10" ry="3" fill="#555"/>
-      <ellipse cx="16" cy="16" rx="10" ry="3" fill="#666"/>
-    </svg>
-  `;
+  const customIconFiles = fs.readdirSync(customIconDir)
+    .filter(file => file.toLowerCase().endsWith('.png'))
+    .sort(); // Sort to ensure consistent selection
+  
+  if (customIconFiles.length === 0) {
+    throw new Error('No PNG file found in assets/icons/custom/');
+  }
+  
+  const customIconPath = path.join(customIconDir, customIconFiles[0]);
+  console.log(`Using custom icon for tray: ${customIconFiles[0]}`);
 
-  // Generate PNG from SVG
-  await sharp(Buffer.from(svg))
+  // Generate 32x32 tray icon from custom icon
+  await sharp(customIconPath)
     .resize(32, 32)
     .png()
     .toFile(path.join(assetsDir, 'tray-icon.png'));
