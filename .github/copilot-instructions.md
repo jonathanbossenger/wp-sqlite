@@ -71,12 +71,17 @@ Main process handlers available:
 **Critical Security Rule:** All SQL queries MUST use parameterized statements to prevent SQL injection:
 
 ```javascript
-// ✅ Good - Parameterized
-const stmt = db.prepare('SELECT * FROM ? LIMIT ? OFFSET ?');
-const data = stmt.all(tableName, limit, offset);
+// ✅ Good - Parameterized values with validated table name
+// Note: Table names cannot be parameterized, so validate against a whitelist
+const validTables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map(t => t.name);
+if (!validTables.includes(tableName)) {
+  throw new Error('Invalid table name');
+}
+const stmt = db.prepare(`SELECT * FROM ${tableName} LIMIT ? OFFSET ?`);
+const data = stmt.all(limit, offset);
 
-// ❌ Bad - String concatenation
-const query = `SELECT * FROM ${tableName}`;  // NEVER DO THIS
+// ❌ Bad - Direct string concatenation without validation
+const query = `SELECT * FROM ${tableName} WHERE id = ${userId}`;  // NEVER DO THIS
 ```
 
 ### WordPress Studio Database Location
