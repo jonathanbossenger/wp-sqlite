@@ -6,6 +6,7 @@ A desktop application for viewing and editing SQLite databases in [WordPress Stu
 
 ## Table of Contents
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Prerequisites](#prerequisites)
 - [Development Setup](#development-setup)
 - [Building Executables](#building-executables)
@@ -33,6 +34,18 @@ A desktop application for viewing and editing SQLite databases in [WordPress Stu
 - Clean, modern UI with real-time updates
 - System tray integration
 - Cross-platform support (macOS, Windows, Linux)
+
+## Screenshots
+
+### Main Application Interface
+![WP SQLite Application](screenshots/Screenshot-01.png)
+
+### Additional Views
+<p align="center">
+  <img src="screenshots/Screenshot-02.png" width="250" alt="Screenshot 2" />
+  <img src="screenshots/Screenshot-03.png" width="250" alt="Screenshot 3" />
+  <img src="screenshots/Screenshot-04.png" width="250" alt="Screenshot 4" />
+</p>
 
 ## Prerequisites
 
