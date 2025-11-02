@@ -30,8 +30,7 @@ wp-sqlite/
 │   ├── index.html           # HTML template
 │   └── about.html           # About window
 ├── scripts/
-│   ├── generate-app-icons.js    # Icon generation script
-│   └── generate-tray-icon.js    # Tray icon generation
+│   └── generate-app-icons.js    # Icon generation script
 ├── preload.js               # Electron preload script (security bridge)
 ├── webpack.config.js        # Webpack configuration
 └── forge.config.js          # Electron Forge configuration
@@ -241,7 +240,6 @@ The app supports macOS, Windows, and Linux:
 ### Icons and Assets
 
 - Application icons generated from `assets/icons/icon.png`
-- Tray icon at `assets/tray-icon.png`
 - Run `npm run generate-all` after changing source icons
 
 ## Dependencies
@@ -282,4 +280,3 @@ The app supports macOS, Windows, and Linux:
 - WordPress Studio uses `.ht.sqlite` as the database filename
 - Database path: `wp-content/database/.ht.sqlite` relative to Studio installation
 - The app stores recent directories using `electron-store` for quick access
-- System tray integration allows running in background

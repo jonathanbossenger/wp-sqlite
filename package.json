@@ -6,8 +6,7 @@
   "scripts": {
     "start": "electron .",
     "generate-icons": "node scripts/generate-app-icons.js",
-    "generate-tray": "node scripts/generate-tray-icon.js",
-    "generate-all": "npm run generate-icons && npm run generate-tray",
+    "generate-all": "npm run generate-icons",
     "dev": "npm run generate-all && webpack --watch & electron-forge start",
     "build": "npm run generate-all && webpack --mode production",
     "package": "npm run build && electron-forge package",

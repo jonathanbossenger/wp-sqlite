@@ -32,7 +32,6 @@ A desktop application for viewing and editing SQLite databases in [WordPress Stu
   - Automatic data type detection
   - Primary key protection
 - Clean, modern UI with real-time updates
-- System tray integration
 - Cross-platform support (macOS, Windows, Linux)
 
 ## Screenshots
@@ -172,11 +171,9 @@ Users can then download and install the appropriate version for their operating 
 
 ## Development Scripts
 
-- `npm start` - Start the application
 - `npm run dev` - Start the application in development mode
 - `npm run build` - Build the renderer process
 - `npm run generate-icons` - Generate application icons
-- `npm run generate-tray` - Generate tray icon
 - `npm run generate-all` - Generate all icons
 - `npm run package` - Package the application without creating installers
 - `npm run make` - Create platform-specific distributables
