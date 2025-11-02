@@ -130,14 +130,6 @@ const TableViewer = ({ directory, tableName }) => {
           </p>
         </div>
         <div className="flex gap-2">
-          <button
-            onClick={() => setAddingRow(true)}
-            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200 flex items-center gap-2"
-            title="Add new row"
-          >
-            <PlusIcon className="h-5 w-5" />
-            Add Row
-          </button>
           <select
             value={searchColumn}
             onChange={(e) => setSearchColumn(e.target.value)}
@@ -157,6 +149,14 @@ const TableViewer = ({ directory, tableName }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
+          <button
+            onClick={() => setAddingRow(true)}
+            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200 flex items-center gap-2"
+            title="Add new row"
+          >
+            <PlusIcon className="h-5 w-5" />
+            Add Row
+          </button>
         </div>
       </div>
       
