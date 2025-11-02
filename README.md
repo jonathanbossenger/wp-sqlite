@@ -25,7 +25,7 @@ A desktop application for viewing and editing SQLite databases in [WordPress Stu
   - View all tables in the database
   - Browse table data with pagination (50 rows per page)
   - View table schema with primary key indicators
-  - Search/filter within table data
+  - Search/filter within table data by specific columns or all columns
 - Data Editing
   - Edit existing rows with modal editor
   - Delete rows (with confirmation)
@@ -146,7 +146,7 @@ Users can then download and install the appropriate version for their operating 
 4. Select a table to view its data
 5. Use pagination controls to navigate through rows
 6. Edit or delete rows as needed
-7. Use the search box to filter data
+7. Use the column dropdown and search box to filter data by specific columns
 
 ### Editing Data
 
@@ -160,6 +160,13 @@ Users can then download and install the appropriate version for their operating 
 1. Click "Delete" on any row
 2. Confirm the deletion
 3. The row is permanently removed from the database
+
+### Searching Data
+
+1. Select a column from the dropdown menu (or "All Columns" to search across all fields)
+2. Type your search query in the search box
+3. The table will automatically filter to show only matching rows
+4. The search is case-insensitive and matches partial text
 
 ## Technical Stack
 
