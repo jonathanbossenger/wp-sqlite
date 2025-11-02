@@ -53,8 +53,6 @@ const filterHiddenTables = (tables) => {
   return tables.filter(t => !t.name.startsWith('_'));
 };
 
-
-
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -75,8 +73,6 @@ const createWindow = () => {
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
-
-
 };
 
 const createMenu = () => {
