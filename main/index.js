@@ -1,10 +1,9 @@
-const { app, BrowserWindow, ipcMain, dialog, Tray, nativeImage, Notification, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Notification, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const Database = require('better-sqlite3');
 
 let mainWindow = null;
-let tray = null;
 let store = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -54,27 +53,6 @@ const filterHiddenTables = (tables) => {
   return tables.filter(t => !t.name.startsWith('_'));
 };
 
-const createTray = async () => {
-  // Use the pre-generated PNG icon
-  const trayIcon = nativeImage.createFromPath(path.join(__dirname, '..', 'assets', 'tray-icon.png'));
-  
-  tray = new Tray(trayIcon);
-  tray.setToolTip('WP SQLite');
-  
-  tray.on('click', () => {
-    if (mainWindow === null) {
-      createWindow();
-    } else {
-      if (mainWindow.isVisible()) {
-        mainWindow.hide();
-      } else {
-        mainWindow.show();
-        mainWindow.focus();
-      }
-    }
-  });
-};
-
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -95,14 +73,6 @@ const createWindow = () => {
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
-
-  // Handle window close event
-  mainWindow.on('close', (event) => {
-    if (!app.isQuitting) {
-      event.preventDefault();
-      mainWindow.hide();
-    }
-  });
 };
 
 const createMenu = () => {
@@ -382,7 +352,6 @@ ipcMain.handle('quit-app', async () => {
 app.whenReady().then(async () => {
   await initStore();
   createMenu();
-  await createTray();
   createWindow();
 
   // Handle dock icon clicks

@@ -22,11 +22,9 @@ wp-sqlite/
 │   ├── index.html           # HTML template
 │   └── about.html           # About window
 ├── scripts/
-│   ├── generate-app-icons.js
-│   └── generate-tray-icon.js
+│   └── generate-app-icons.js
 ├── assets/
-│   ├── icons/               # Application icons for all platforms
-│   └── tray-icon.png        # System tray icon
+│   └── icons/               # Application icons for all platforms
 ├── preload.js               # Electron preload script
 ├── webpack.config.js        # Webpack configuration
 ├── forge.config.js          # Electron Forge configuration
