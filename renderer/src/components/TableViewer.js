@@ -11,6 +11,7 @@ const TableViewer = ({ directory, tableName }) => {
   const [editingRow, setEditingRow] = useState(null);
   const [addingRow, setAddingRow] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchColumn, setSearchColumn] = useState('all');
   const rowsPerPage = 50;
 
   useEffect(() => {
@@ -100,12 +101,23 @@ const TableViewer = ({ directory, tableName }) => {
   const totalPages = Math.ceil(totalRows / rowsPerPage);
   const pkColumn = tableData.schema.find(col => col.pk === 1);
 
-  // Filter data based on search query
+  // Filter data based on search query and selected column
   const filteredData = tableData.data.filter(row => {
     if (!searchQuery.trim()) return true;
-    return Object.values(row).some(value => 
-      String(value).toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    
+    // Search all columns
+    if (searchColumn === 'all') {
+      return Object.values(row).some(value => 
+        String(value).toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    // Search specific column
+    const columnValue = row[searchColumn];
+    if (columnValue === null || columnValue === undefined) {
+      return false;
+    }
+    return String(columnValue).toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   return (
@@ -118,6 +130,25 @@ const TableViewer = ({ directory, tableName }) => {
           </p>
         </div>
         <div className="flex gap-2">
+          <select
+            value={searchColumn}
+            onChange={(e) => setSearchColumn(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm bg-white"
+          >
+            <option value="all">All Columns</option>
+            {tableData.columns?.map((column) => (
+              <option key={column} value={column}>
+                {column}
+              </option>
+            ))}
+          </select>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+          />
           <button
             onClick={() => setAddingRow(true)}
             className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200 flex items-center gap-2"
@@ -126,13 +157,6 @@ const TableViewer = ({ directory, tableName }) => {
             <PlusIcon className="h-5 w-5" />
             Add Row
           </button>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-          />
         </div>
       </div>
       
