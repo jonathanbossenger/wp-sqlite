@@ -218,7 +218,7 @@ New-Item -ItemType Directory -Path "$env:USERPROFILE\test-wp-studio\wp-content\d
 4. **Secure IPC**: Use `contextBridge` to expose limited API surface to renderer
 5. **No Remote Code Execution**: All SQL executes locally, no network requests
 
-### When Adding Features
+### When Fixing Bugs or Adding Features
 
 - Validate all user input
 - Use parameterized SQL queries
@@ -227,6 +227,7 @@ New-Item -ItemType Directory -Path "$env:USERPROFILE\test-wp-studio\wp-content\d
 - Follow Electron security best practices
 - Review the `.github/copilot-instructions.md` file and make nessecary updates
 - When performing `.github/copilot-instructions.md` updates, keep them as minimal but as clear as possible
+- Only add new files when they are specifically required for the feature
 
 ## Platform-Specific Considerations
 
