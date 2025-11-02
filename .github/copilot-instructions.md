@@ -226,6 +226,8 @@ New-Item -ItemType Directory -Path "$env:USERPROFILE\test-wp-studio\wp-content\d
 - Sanitize file paths
 - Handle errors without exposing sensitive information
 - Follow Electron security best practices
+- Review the `.github/copilot-instructions.md` file and make nessecary updates
+- When performing `.github/copilot-instructions.md` updates, keep them as minimal but as clear as possible
 
 ## Platform-Specific Considerations
 
@@ -281,14 +283,3 @@ The app supports macOS, Windows, and Linux:
 - Database path: `wp-content/database/.ht.sqlite` relative to Studio installation
 - The app stores recent directories using `electron-store` for quick access
 - System tray integration allows running in background
-
-## Future Enhancement Areas
-
-When considering new features, these areas have been identified for potential enhancement:
-- Export/import functionality (CSV/JSON)
-- SQL query console
-- Table schema editor
-- Database backup/restore
-- Dark mode theme
-- Keyboard shortcuts
-- Undo/Redo for data changes
