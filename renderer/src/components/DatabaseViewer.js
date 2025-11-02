@@ -32,11 +32,6 @@ const DatabaseViewer = ({ directory, onChangeDirectory, isSelecting, onQuit }) =
             <p className="bg-white px-4 py-2.5 rounded-md border border-gray-200 font-mono text-sm text-gray-600 break-all">
               {directory}
             </p>
-            {databaseInfo && (
-              <p className="mt-2 text-sm text-gray-600">
-                Database: {databaseInfo.path} ({databaseInfo.tableCount} tables)
-              </p>
-            )}
           </div>
           <button
             onClick={onChangeDirectory}
