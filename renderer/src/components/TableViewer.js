@@ -114,6 +114,9 @@ const TableViewer = ({ directory, tableName }) => {
     
     // Search specific column
     const columnValue = row[searchColumn];
+    if (columnValue === null || columnValue === undefined) {
+      return false;
+    }
     return String(columnValue).toLowerCase().includes(searchQuery.toLowerCase());
   });
 
@@ -141,7 +144,7 @@ const TableViewer = ({ directory, tableName }) => {
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm bg-white"
           >
             <option value="all">All Columns</option>
-            {tableData.columns.map((column) => (
+            {tableData.columns?.map((column) => (
               <option key={column} value={column}>
                 {column}
               </option>
