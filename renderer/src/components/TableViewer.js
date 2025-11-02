@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import EditRowModal from './EditRowModal';
 
 const TableViewer = ({ directory, tableName }) => {
@@ -139,16 +140,18 @@ const TableViewer = ({ directory, tableName }) => {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEditRow(row)}
-                        className="text-blue-600 hover:text-blue-800 text-xs"
+                        className="text-blue-600 hover:text-blue-800"
+                        title="Edit"
                       >
-                        Edit
+                        <PencilSquareIcon className="h-5 w-5" />
                       </button>
                       {pkColumn && (
                         <button
                           onClick={() => handleDeleteRow(rowId)}
-                          className="text-red-600 hover:text-red-800 text-xs"
+                          className="text-red-600 hover:text-red-800"
+                          title="Delete"
                         >
-                          Delete
+                          <TrashIcon className="h-5 w-5" />
                         </button>
                       )}
                     </div>
