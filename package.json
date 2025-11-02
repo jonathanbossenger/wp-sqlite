@@ -1,6 +1,6 @@
 {
   "name": "wp-sqlite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An app to open, view, and edit data in a sqlite database for WordPress Studio",
   "main": "main/index.js",
   "scripts": {
