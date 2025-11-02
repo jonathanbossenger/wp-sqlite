@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PencilSquareIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline';
 import EditRowModal from './EditRowModal';
+import AddRowModal from './AddRowModal';
 
 const TableViewer = ({ directory, tableName }) => {
   const [tableData, setTableData] = useState(null);
@@ -8,6 +9,7 @@ const TableViewer = ({ directory, tableName }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [editingRow, setEditingRow] = useState(null);
+  const [addingRow, setAddingRow] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const rowsPerPage = 50;
 
@@ -71,6 +73,18 @@ const TableViewer = ({ directory, tableName }) => {
     }
   };
 
+  const handleAddRow = async (data) => {
+    try {
+      await window.electronAPI.insertRow(directory, tableName, data);
+      setAddingRow(false);
+      await loadTableData();
+      await loadRowCount();
+    } catch (error) {
+      console.error('Error adding row:', error);
+      alert('Error adding row: ' + error.message);
+    }
+  };
+
   if (loading && !tableData) {
     return (
       <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-lg border border-gray-200">
@@ -104,6 +118,14 @@ const TableViewer = ({ directory, tableName }) => {
           </p>
         </div>
         <div className="flex gap-2">
+          <button
+            onClick={() => setAddingRow(true)}
+            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200 flex items-center gap-2"
+            title="Add new row"
+          >
+            <PlusIcon className="h-5 w-5" />
+            Add Row
+          </button>
           <input
             type="text"
             placeholder="Search..."
@@ -198,6 +220,16 @@ const TableViewer = ({ directory, tableName }) => {
           pkColumn={pkColumn}
           onSave={handleSaveRow}
           onClose={() => setEditingRow(null)}
+        />
+      )}
+
+      {addingRow && (
+        <AddRowModal
+          columns={tableData.columns}
+          schema={tableData.schema}
+          pkColumn={pkColumn}
+          onSave={handleAddRow}
+          onClose={() => setAddingRow(false)}
         />
       )}
     </div>
