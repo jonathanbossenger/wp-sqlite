@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 
 const AddRowModal = ({ columns, schema, pkColumn, onSave, onClose }) => {
-  // Initialize form data with empty values
+  // Helper function to determine if a field should be shown in the form
+  const shouldShowField = (columnSchema) => {
+    // Don't show auto-increment primary keys
+    if (columnSchema.pk === 1) {
+      const type = columnSchema.type.toLowerCase();
+      // For SQLite, INTEGER PRIMARY KEY is auto-increment by default
+      if (type.includes('integer')) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // Initialize form data with empty values for visible fields only
   const initialFormData = {};
   columns.forEach(column => {
     const columnSchema = schema.find(col => col.name === column);
-    const isPrimaryKey = columnSchema.pk === 1;
-    // Don't include auto-increment primary keys in the form
-    if (!isPrimaryKey || columnSchema.type.toLowerCase().includes('autoincrement') === false) {
+    if (shouldShowField(columnSchema)) {
       initialFormData[column] = '';
     }
   });
@@ -47,18 +58,6 @@ const AddRowModal = ({ columns, schema, pkColumn, onSave, onClose }) => {
       return 'number';
     }
     return 'text';
-  };
-
-  const shouldShowField = (columnSchema) => {
-    // Don't show auto-increment primary keys
-    if (columnSchema.pk === 1) {
-      const type = columnSchema.type.toLowerCase();
-      // For SQLite, INTEGER PRIMARY KEY is auto-increment by default
-      if (type.includes('integer')) {
-        return false;
-      }
-    }
-    return true;
   };
 
   return (
